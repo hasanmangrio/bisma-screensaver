@@ -76,7 +76,7 @@ struct BismaView: View {
     }
 
     private var salutationLabel: some View {
-        Text("Assalamu Alaikum,")
+        Text("Salaam,")
             .font(.custom("Poppins-Light", size: 15))
             .tracking(3.5)
             .textCase(.uppercase)

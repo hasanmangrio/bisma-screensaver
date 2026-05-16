@@ -32,19 +32,19 @@ $(BUNDLE): $(SOURCES) Resources/Info.plist
 	@mkdir -p $(BUNDLE)/Contents/MacOS
 	@mkdir -p $(BUNDLE)/Contents/Resources/Backgrounds
 	swiftc $(SOURCES) $(SWIFTFLAGS) -o $(BUNDLE)/Contents/MacOS/$(SAVER_NAME)
-	@cp Resources/Info.plist $(BUNDLE)/Contents/
-	@cp ../quotes.txt $(BUNDLE)/Contents/Resources/
-	@cp ../ayahs.txt  $(BUNDLE)/Contents/Resources/
-	@cp ../new-backgrounds/*.jpg $(BUNDLE)/Contents/Resources/Backgrounds/ 2>/dev/null || true
-	@cp ../Poppins/Poppins-Thin.ttf \
-	    ../Poppins/Poppins-ExtraLight.ttf \
-	    ../Poppins/Poppins-Light.ttf \
-	    ../Poppins/Poppins-LightItalic.ttf \
-	    ../Poppins/Poppins-Regular.ttf \
-	    ../Poppins/Poppins-Medium.ttf \
-	    $(BUNDLE)/Contents/Resources/
-	@xattr -cr $(BUNDLE)
-	@codesign -s - $(BUNDLE)
+	@cat Resources/Info.plist > $(BUNDLE)/Contents/Info.plist
+	@cat ../quotes.txt > $(BUNDLE)/Contents/Resources/quotes.txt
+	@cat ../ayahs.txt  > $(BUNDLE)/Contents/Resources/ayahs.txt
+	@for img in ../new-backgrounds/File_*.jpg; do \
+	    cat "$$img" > "$(BUNDLE)/Contents/Resources/Backgrounds/$$(basename $$img)"; \
+	done
+	@cat ../Poppins/Poppins-Thin.ttf      > $(BUNDLE)/Contents/Resources/Poppins-Thin.ttf
+	@cat ../Poppins/Poppins-ExtraLight.ttf > $(BUNDLE)/Contents/Resources/Poppins-ExtraLight.ttf
+	@cat ../Poppins/Poppins-Light.ttf      > $(BUNDLE)/Contents/Resources/Poppins-Light.ttf
+	@cat ../Poppins/Poppins-LightItalic.ttf > $(BUNDLE)/Contents/Resources/Poppins-LightItalic.ttf
+	@cat ../Poppins/Poppins-Regular.ttf    > $(BUNDLE)/Contents/Resources/Poppins-Regular.ttf
+	@cat ../Poppins/Poppins-Medium.ttf     > $(BUNDLE)/Contents/Resources/Poppins-Medium.ttf
+	@codesign -s - --ignore-resources $(BUNDLE) 2>/dev/null || codesign -s - $(BUNDLE)/Contents/MacOS/$(SAVER_NAME) 2>/dev/null || true
 	@echo ""
 	@echo "✓ Built $(BUNDLE)"
 
