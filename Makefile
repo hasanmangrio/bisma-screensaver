@@ -44,7 +44,7 @@ $(BUNDLE): $(SOURCES) Resources/Info.plist
 	@cat ../Poppins/Poppins-LightItalic.ttf > $(BUNDLE)/Contents/Resources/Poppins-LightItalic.ttf
 	@cat ../Poppins/Poppins-Regular.ttf    > $(BUNDLE)/Contents/Resources/Poppins-Regular.ttf
 	@cat ../Poppins/Poppins-Medium.ttf     > $(BUNDLE)/Contents/Resources/Poppins-Medium.ttf
-	@codesign -s - --ignore-resources $(BUNDLE) 2>/dev/null || codesign -s - $(BUNDLE)/Contents/MacOS/$(SAVER_NAME) 2>/dev/null || true
+	@codesign --remove-signature $(BUNDLE)/Contents/MacOS/$(SAVER_NAME) 2>/dev/null || true
 	@echo ""
 	@echo "✓ Built $(BUNDLE)"
 

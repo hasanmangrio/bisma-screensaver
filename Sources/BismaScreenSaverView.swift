@@ -1,6 +1,7 @@
 import ScreenSaver
 import SwiftUI
 
+@objc(BismaScreenSaverView)
 final class BismaScreenSaverView: ScreenSaverView {
     private var hostingView: NSHostingView<BismaView>?
     private var configWindowController: ConfigSheetController?
